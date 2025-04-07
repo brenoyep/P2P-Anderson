@@ -3,25 +3,20 @@ import java.net.*;
 
 public class P2P {
     public static void main(String[] args) {
-        int porta = 8080; // Porta que será reservada para o servidor
+        int porta = 8080;
 
         try {
-            // Cria o ServerSocket para escutar na porta 8080
             ServerSocket serverSocket = new ServerSocket(porta);
             System.out.println("Servidor aguardando conexão na porta " + porta + "!");
 
-            // Aceita a conexão do cliente
             Socket clienteSocket = serverSocket.accept();
             System.out.println("Cliente conectado: " + clienteSocket.getInetAddress().getHostAddress());
 
-            // Cria os streams de entrada e saída
             BufferedReader entrada = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
             PrintWriter saida = new PrintWriter(clienteSocket.getOutputStream(), true);
 
-            // Envia uma mensagem inicial para o cliente
             saida.println("Bem-vindo ao servidor!");
 
-            // Cria uma thread para receber mensagens do cliente
             Thread receberMensagens = new Thread(() -> {
                 try {
                     String mensagemCliente;
@@ -41,7 +36,6 @@ public class P2P {
             });
             receberMensagens.start();
 
-            // Loop para enviar mensagens para o cliente
             BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
             String mensagemServidor;
             while (true) {
@@ -56,7 +50,6 @@ public class P2P {
                 saida.println(mensagemServidor);
             }
 
-            // Fecha a conexão quando o loop terminar
             entrada.close();
             saida.close();
             clienteSocket.close();
