@@ -3,8 +3,8 @@ import java.net.*;
 
 public class Cliente1 {
     public static void main(String[] args) {
-        String enderecoOutroCliente = "localhost"; // IP do outro cliente
-        int porta = 8080;  // Porta
+        String enderecoOutroCliente = "localhost";
+        int porta = 8080;
 
         try {
             Socket socket = new Socket(enderecoOutroCliente, porta);
